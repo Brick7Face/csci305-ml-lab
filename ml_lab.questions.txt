@@ -15,11 +15,16 @@ the list is sent through the function f again, and the result is cons-ed to the 
 
 5. false
 
-6. Tail recursion; it compares the head of the set to e and sends the tail through the function again. ??? - research
+6. Tail recursion; the last thing that the program does before returning is recursive, making it tail recursive.
 
-7. Set ("it", Set ("was", Set ("the", Set ("best", Set ("of", Set ("times", Set ("worst", Empty)))))))
+7.  Set ("it",Set ("was",Set ("the",Set ("best",Set ("of",Set ("times,",Set ("worst",Set ("times",Empty))))))))
+- cleaned up, it looks like { it was the best of times, worst times }
 
-8.
+8. Tail recursive functions allow the compiler to optimize the function, as it does not have to worry
+about saving the function's stack frame. This is because the rest of the function has already been 
+executed and the last thing to do is the recursive part. This kind of code is also called tail call
+elimination. In general, it makes compilation more efficient.
+(Source: https://www.geeksforgeeks.org/tail-recursion/)
 
 9.
 
@@ -34,9 +39,16 @@ functions require that steps all be thought out/written down and then implemente
 languages like Java allow the coder to write one line of code per thought, as the language requires it. ML definitely
 requires a new way of thinking about programming.
 
-13. 
+13. I did not enjoy the lab when I could not get the functions to work; however, when I ended up being able to figure
+out the syntax and make things run, I got very excited. That being said, I enjoyed the lab overall, those I prefer
+other languages over ML. I thought the idea of defining your own datatypes and functions for them was interesting.
+It was a good approach to learning it, too, as our "set" type was somewhat conceptually similar to lists, and the
+functions were relatively simple. The difficult part was getting ML to do what I wanted it to do.
 
-14. I probably spent around 12-15 hours total trying to figure out how to do each of the things and experimenting in the
-PolyML shell to get the correct syntax.
+14. I probably spent around 18-20 hours total trying to figure out how to do each of the tasks, including tinkering in the
+sml environment to figure out syntaxes and following recursion diagrams I drew on paper to track what the functions needed
+to do.
 
-15.
+15. I don't think so, but if I did, I would probably use it for a project where I would want to define my own datatypes
+or one requiring a lot of math functions. I thought the recursion would be a good way to evaluation math functions.
+At this point, however, I think that ML generally is just good to practice recursion with.

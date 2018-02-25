@@ -6,18 +6,33 @@
 * njtranel@gmail.com
 *
 ***************************************************************)
+Control.Print.printDepth := 1024;
 
-(* Define your data type and functions here *)
+(* Datatype for set - either Empty or Set of an element and another Set *)
 datatype 'element set = Empty | Set of 'element * 'element set;
 
-fun isMember e set = 
-	case set of 
-		Empty => false |
-		Set(x,y) => e=x orelse false;
+(* Function to determine if e is contained in set *)
+fun isMember e set =
+	case set of
+		Empty => false |					(* if set is Empty, then e is not a member of set *)
+		Set(h,t) =>
+			if e=h then true				(* if set is Set, compare the first element to e and return true, *)
+			else isMember e t;			(* but if not do isMember with the Set in set *)
 
-(* needs isMember incorporation *)
-fun list2Set [] = Empty 
-|   list2Set x = Set(hd(x),list2Set(tl(x)));
+(* Function to convert a list type to type set *)
+fun list2Set [] = Empty												(* if passed the empty list, return set with value Empty *)
+|   list2Set (x::xs) =												(* otherwise, proceed with recursive case *)
+			let																																														(* define a function to remove duplicates from list *)
+				fun remove_duplicates [] = []																																(* if list is empty, return empty list *)
+				| remove_duplicates (y::ys) = y::remove_duplicates(List.filter (fn z => z <> y) ys)					(* otherwise filter the list, returning only unique elements *)
+			in
+				let
+					val s = list2Set(xs);																					(* create the set for all elements but the head *)
+				in																															(* before putting on the head, check to make sure there are not duplicates *)
+					if isMember x s then list2Set(remove_duplicates(x::xs))				(* if there are, then build a set from the list of unique elements *)
+					else Set(x,s)																									(* otherwise tack on the head of the list and return the new set *)
+				end
+			end;
 
 (* Simple function to stringify the contents of a Set of characters *)
 fun stringifyCharSet Empty = ""
