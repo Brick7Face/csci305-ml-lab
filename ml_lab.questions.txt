@@ -17,8 +17,8 @@ the list is sent through the function f again, and the result is cons-ed to the 
 
 6. Tail recursion; the last thing that the program does before returning is recursive, making it tail recursive.
 
-7.  Set ("it",Set ("was",Set ("the",Set ("best",Set ("of",Set ("times,",Set ("worst",Set ("times",Empty))))))))
-- cleaned up, it looks like { it was the best of times, worst times }
+7. Printed with the stringify functions, it looks like { it was the best of times, worst times }, but raw output is
+   Set ("it",Set ("was",Set ("the",Set ("best",Set ("of",Set ("times,",Set ("worst",Set ("times", Empty))))))))
 
 8. Tail recursive functions allow the compiler to optimize the function, as it does not have to worry
 about saving the function's stack frame. This is because the rest of the function has already been 
@@ -26,9 +26,11 @@ executed and the last thing to do is the recursive part. This kind of code is al
 elimination. In general, it makes compilation more efficient.
 (Source: https://www.geeksforgeeks.org/tail-recursion/)
 
-9.
+9. Printed with the stringify functions, it looks like { and eggs green ham }, but raw output is
+   Set ("and", Set ("eggs", Set ("green", Set ("ham", Empty))))
 
-10.
+10. Printed with the stringify functions, it looks like { and macaroni }, but raw output is
+    Set ("and", Set ("macaroni", Empty))
 
 11. I like how functions can be written in a "tricky" way using recursion - it feels like the most elegant way to do things,
 as if each function is being written in one line (and it sort of is, in a sense). Though it requires some difficult thought

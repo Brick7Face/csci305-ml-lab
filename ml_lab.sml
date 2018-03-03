@@ -34,6 +34,26 @@ fun list2Set [] = Empty												(* if passed the empty list, return set with 
 				end
 			end;
 
+(* Function that takes two sets and returns the mathematical union of the sets *)
+fun union set1 set2 =
+		case set1 of																			(* check set2 against set1 *)
+			Empty => set2	|																	(* if set1 is empty, return set2 *)
+			Set(h,t) =>																			(* otherwise, if set1 contains values, separate them into the head and tail *)
+				let
+					val s = Set(h, set2)												(* define a variable s to represent the created set of the head of set1 and set2 *)
+				in
+					if isMember h set2 then union t set2				(* if the head value of set1 is a member of set2, then retry the union function with the tail of set1 and set2 *)
+					else union t s 															(* otherwise, repeat union with the tail of set1 and the set created earlier *)
+				end;
+
+(* Function that takes two sets and returns the matematical intersection of the sets *)
+fun intersect set1 set2 =
+	case set1 of																									(* as in union, check set2 against set1 *)
+		Empty => Empty |																						(* if set1 is empty, return an Empty set *)
+		Set(h,t) =>																									(* otherwise, divide set1 into a head and tail *)
+			if isMember h set2 then Set(h, (intersect t set2))				(* if the head of set1 is a member of set2, then create a set with the head of set1 and the intersection of the rest of set1 and set2 *)
+			else intersect t set2;																		(* otherwise, repeat intersect with the tail of set1 and set2 *)
+
 (* Simple function to stringify the contents of a Set of characters *)
 fun stringifyCharSet Empty = ""
   | stringifyCharSet (Set(y, ys)) = Char.toString(y) ^ " " ^ stringifyCharSet(ys);
