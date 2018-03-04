@@ -6,6 +6,8 @@
 * njtranel@gmail.com
 *
 ***************************************************************)
+
+(* Fixes weird printing errors where the full output is cut off *)
 Control.Print.printDepth := 1024;
 
 (* Datatype for set - either Empty or Set of an element and another Set *)
@@ -19,6 +21,14 @@ fun isMember e set =
 			if e=h then true				(* if set is Set, compare the first element to e and return true, *)
 			else isMember e t;			(* but if not do isMember with the Set in set *)
 
+(* Function to verify that the input set has no duplicates (mentioned as part of list2Set requirements) *)
+fun isSet set =
+	case set of
+		Empty => true |														(* if input set is Empty, then it does not have duplicates and is a valid set *)
+		Set (h,t) =>															(* otherwise, split the set into it's head and tail *)
+			if isMember h t then false							(* if the head of the set is already a member of the tail of the set, then it has duplicates and is not a valid set *)
+			else isSet t;														(* otherwise continue to check the rest of the set *)
+
 (* Function to convert a list type to type set *)
 fun list2Set [] = Empty												(* if passed the empty list, return set with value Empty *)
 |   list2Set (x::xs) =												(* otherwise, proceed with recursive case *)
@@ -27,10 +37,10 @@ fun list2Set [] = Empty												(* if passed the empty list, return set with 
 				| remove_duplicates (y::ys) = y::remove_duplicates(List.filter (fn z => z <> y) ys)					(* otherwise filter the list, returning only unique elements *)
 			in
 				let
-					val s = list2Set(xs);																					(* create the set for all elements but the head *)
-				in																															(* before putting on the head, check to make sure there are not duplicates *)
-					if isMember x s then list2Set(remove_duplicates(x::xs))				(* if there are, then build a set from the list of unique elements *)
-					else Set(x,s)																									(* otherwise tack on the head of the list and return the new set *)
+					val s = Set(x, list2Set(xs));																	(* create the set *)
+				in																															(* check to make sure set rules are followed (no duplicates) *)
+					if isSet(s) then s																						(* if the final product is a set (does not have duplicates), return that final product *)
+					else list2Set(remove_duplicates(x::xs))												(* otherwise do list2Set again with the input list sans duplicates *)
 				end
 			end;
 
@@ -42,8 +52,8 @@ fun union set1 set2 =
 				let
 					val s = Set(h, set2)												(* define a variable s to represent the created set of the head of set1 and set2 *)
 				in
-					if isMember h set2 then union t set2				(* if the head value of set1 is a member of set2, then retry the union function with the tail of set1 and set2 *)
-					else union t s 															(* otherwise, repeat union with the tail of set1 and the set created earlier *)
+					if isMember h set2 then union t set2				(* if the head value of set1 is a member of set2, then retry the union function with the tail of set1 and set2 (cutting out the duplicate) *)
+					else union t s 															(* otherwise, repeat union with the tail of set1 and the set created earlier (prepends the first element of set1 to set2) *)
 				end;
 
 (* Function that takes two sets and returns the matematical intersection of the sets *)
@@ -75,12 +85,14 @@ fun print_str x = print ("{ " ^ stringifyStringSet(x) ^ "}\n");
 (* Simple function that prints a set of characters *)
 fun print_chr x = print ("{ " ^ stringifyCharSet(x) ^ "}\n");
 
+(* Example uses of list2Set function *)
 list2Set [1, 3, 2];
 list2Set [#"a", #"b", #"c"];
 list2Set [];
 list2Set [6, 2, 2];
 list2Set ["x", "y", "z", "x"];
 
+(* Question 1 function - adds 1 to every element in the list and returns the resulting list *)
 fun f [] = [] (* a *)
 |   f (x::xs) = (x + 1) :: (f xs); (* b *)
 

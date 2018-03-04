@@ -5,8 +5,8 @@ Lab Questions
 =======================
 1. The output I get when running f [3, 1, 4, 1, 5, 9] is [4, 2, 5, 2, 6, 10].
 
-2. The function f appears to add 1 to all of the numbers in the input list, so the list that
-is returned is the same list with all the values increased by 1.
+2. The function f adds 1 to all of the numbers in the input list, so the list that
+is returned is the same size with all the values increased by 1.
 
 3. Line (a) is the base case line - if the input list is empty, return an empty list.
 
@@ -17,8 +17,8 @@ the list is sent through the function f again, and the result is cons-ed to the 
 
 6. Tail recursion; the last thing that the program does before returning is recursive, making it tail recursive.
 
-7. Printed with the stringify functions, it looks like { it was the best of times, worst times }, but raw output is
-   Set ("it",Set ("was",Set ("the",Set ("best",Set ("of",Set ("times,",Set ("worst",Set ("times", Empty))))))))
+7. Printed with the stringify functions, it looks like { it was the best of times, worst times }, but raw output value 
+   would be Set ("it",Set ("was",Set ("the",Set ("best",Set ("of",Set ("times,",Set ("worst",Set ("times", Empty))))))))
 
 8. Tail recursive functions allow the compiler to optimize the function, as it does not have to worry
 about saving the function's stack frame. This is because the rest of the function has already been 
@@ -26,11 +26,11 @@ executed and the last thing to do is the recursive part. This kind of code is al
 elimination. In general, it makes compilation more efficient.
 (Source: https://www.geeksforgeeks.org/tail-recursion/)
 
-9. Printed with the stringify functions, it looks like { and eggs green ham }, but raw output is
-   Set ("and", Set ("eggs", Set ("green", Set ("ham", Empty))))
+9. Printed with the stringify functions, it looks like { and eggs green ham }, but raw output value
+   would be Set ("and", Set ("eggs", Set ("green", Set ("ham", Empty))))
 
-10. Printed with the stringify functions, it looks like { and macaroni }, but raw output is
-    Set ("and", Set ("macaroni", Empty))
+10. Printed with the stringify functions, it looks like { and macaroni }, but raw output value
+    would be Set ("and", Set ("macaroni", Empty))
 
 11. I like how functions can be written in a "tricky" way using recursion - it feels like the most elegant way to do things,
 as if each function is being written in one line (and it sort of is, in a sense). Though it requires some difficult thought
@@ -39,18 +39,19 @@ sometimes, it is a cool way of doing things.
 12. That being said, while it is cool, I do not like the structure that the programs must follow. The recursive nature of 
 functions require that steps all be thought out/written down and then implemented elegant code, whereas more familiar 
 languages like Java allow the coder to write one line of code per thought, as the language requires it. ML definitely
-requires a new way of thinking about programming.
+requires a new way of thinking about programming, with a special consideration for recursion.
 
 13. I did not enjoy the lab when I could not get the functions to work; however, when I ended up being able to figure
-out the syntax and make things run, I got very excited. That being said, I enjoyed the lab overall, those I prefer
+out the syntax and make things run, I got very excited. That being said, I enjoyed the lab overall, though I prefer
 other languages over ML. I thought the idea of defining your own datatypes and functions for them was interesting.
 It was a good approach to learning it, too, as our "set" type was somewhat conceptually similar to lists, and the
 functions were relatively simple. The difficult part was getting ML to do what I wanted it to do.
 
-14. I probably spent around 18-20 hours total trying to figure out how to do each of the tasks, including tinkering in the
+14. I probably spent around 16-18 hours total trying to figure out how to do each of the tasks, including tinkering in the
 sml environment to figure out syntaxes and following recursion diagrams I drew on paper to track what the functions needed
-to do.
+to do. I got a lot of interesting type errors, so debugging those also took some time.
 
 15. I don't think so, but if I did, I would probably use it for a project where I would want to define my own datatypes
 or one requiring a lot of math functions. I thought the recursion would be a good way to evaluation math functions.
-At this point, however, I think that ML generally is just good to practice recursion with.
+At this point, however, I do not necessarily using ML unless I had to, since it still feels difficult to do things
+that are simple in other languages.
