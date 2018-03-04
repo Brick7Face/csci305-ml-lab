@@ -21,14 +21,6 @@ fun isMember e set =
 			if e=h then true				(* if set is Set, compare the first element to e and return true, *)
 			else isMember e t;			(* but if not do isMember with the Set in set *)
 
-(* Function to verify that the input set has no duplicates (mentioned as part of list2Set requirements) *)
-fun isSet set =
-	case set of
-		Empty => true |														(* if input set is Empty, then it does not have duplicates and is a valid set *)
-		Set (h,t) =>															(* otherwise, split the set into it's head and tail *)
-			if isMember h t then false							(* if the head of the set is already a member of the tail of the set, then it has duplicates and is not a valid set *)
-			else isSet t;														(* otherwise continue to check the rest of the set *)
-
 (* Function to convert a list type to type set *)
 fun list2Set [] = Empty												(* if passed the empty list, return set with value Empty *)
 |   list2Set (x::xs) =												(* otherwise, proceed with recursive case *)
@@ -37,10 +29,10 @@ fun list2Set [] = Empty												(* if passed the empty list, return set with 
 				| remove_duplicates (y::ys) = y::remove_duplicates(List.filter (fn z => z <> y) ys)					(* otherwise filter the list, returning only unique elements *)
 			in
 				let
-					val s = Set(x, list2Set(xs));																	(* create the set *)
-				in																															(* check to make sure set rules are followed (no duplicates) *)
-					if isSet(s) then s																						(* if the final product is a set (does not have duplicates), return that final product *)
-					else list2Set(remove_duplicates(x::xs))												(* otherwise do list2Set again with the input list sans duplicates *)
+					val s = list2Set(xs);																					(* create the set for all elements but the head *)
+				in																															(* before putting on the head, check to make sure there are not duplicates *)
+					if isMember x s then list2Set(remove_duplicates(x::xs))				(* if there are, then build a set from the list of unique elements *)
+					else Set(x,s)																									(* otherwise tack on the head of the list and return the new set *)
 				end
 			end;
 
